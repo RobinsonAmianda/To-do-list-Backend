@@ -1,10 +1,14 @@
-from flask import request, jsonify
+from flask import request, Flask
 from flask_restful import Resource, Api, reqparse
 from models import User, db
 from flask import Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, create_refresh_token 
+# from flask_login import LoginManager,logout_user
 
+
+# login_manager = LoginManager()
+# login_manager.init_app(app)
 auth_bp = Blueprint("auth_bp", __name__)
 api = Api(auth_bp)
 bcrypt = Bcrypt()
@@ -64,5 +68,12 @@ class Login(Resource):
         else:
             return {"detail": "Invalid email or password"}, 401
 
+
+# class Logout(Resource):
+#     def post(self):
+#         logout_user()
+#         return {"detail":"Logout successfully"}, 200
+
 api.add_resource(Register, "/register")
 api.add_resource(Login, "/login")
+# api.add_resource(Logout, "/logout")
